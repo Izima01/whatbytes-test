@@ -21,8 +21,8 @@ const UpdateModal = ({
 }: ModalTypes) => {
   return (
     <Modal
-      width={'45%'}
-      className='w-4/5 md:w-1/2'
+      width={'90%'}
+      className='!max-w-3xl'
       open={isModalOpen}
       onOk={() => setIsModalOpen(false)}
       onCancel={() => setIsModalOpen(false)}
@@ -55,25 +55,25 @@ const UpdateModal = ({
       <ol className='my-12'>
         {Object.values(formData).map(({ error, name, value }, i) => (
           <li
-            className='w-full flex justify-between items-center mb-4'
+            className='w-full flex justify-between items-center mb-4 relative pb-4'
             key={name}
           >
-            <div className='flex gap-3 items-center'>
-              <span className='flex justify-center items-center bg-[#122386] w-7 h-7 rounded-full text-white text-lg'>
-                1
+            <div className='flex gap-1.5 md:gap-3 items-center'>
+              <span className='flex justify-center items-center bg-[#122386] h-6 w-6 md:w-8 md:h-8 rounded-full text-white md:text-lg'>
+                {i + 1}
               </span>
-              <h4 className='text-lg'>
+              <h4 className='md:text-lg'>
                 Update your <span className='font-semibold'>{name}</span>
               </h4>
             </div>
             <div
-              className={`w-1/3 relative transition-all ${
-                error ? '-left-10' : ''
+              className={`w-1/6 md:w-1/3 relative transition-all ${
+                error ? '-left-6 md:-left-10' : ''
               }`}
             >
               <input
                 type='string'
-                className={`py-2 w-full px-4 border-2 outline-none ${
+                className={`py-1 md:py-2 w-full md:px-4 px-2 border-2 outline-none ${
                   error ? 'border-red-500 ' : 'border-[#507ac9]'
                 } rounded-lg`}
                 value={value}
@@ -81,8 +81,12 @@ const UpdateModal = ({
                   handleChange(Object.keys(formData)[i], e.target.value)
                 }
               />
-              {error && <p className='text-red-500 -mt-1 text-sm'>{error}</p>}
             </div>
+            {error && (
+              <p className='text-red-500 -mt-1 text-sm absolute bottom-0 right-6 md:right-10'>
+                {error}
+              </p>
+            )}
           </li>
         ))}
       </ol>
